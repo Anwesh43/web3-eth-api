@@ -1,9 +1,9 @@
 const Web3 = require('web3')
-const {url} = require('./config.json')
+const {urls} = require('./config.json')
 class Web3Api {
 
-    constructor() {
-        this.web3 = new Web3(url)
+    constructor(network) {
+        this.web3 = new Web3(urls[network])
     }
 
     getBalance(address) {
@@ -24,4 +24,12 @@ class Web3Api {
     }
 }
 
-module.exports = new Web3Api()
+const networks = Object.keys(urls)
+const networkWeb3ApiMap = {}
+networks.forEach((network) => {
+    networkWeb3ApiMap[network] = new Web3Api(network)
+})
+
+module.exports = (network) => {
+    return networkWeb3ApiMap[network]
+}
