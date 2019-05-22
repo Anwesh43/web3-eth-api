@@ -11,7 +11,7 @@ class Web3Api {
             try {
                 this.web3.eth.getBalance(address, (err, bal) => {
                     if (!err) {
-                        resolve(bal)
+                        resolve(this.web3.utils.fromWei(bal))
                     } else {
                         console.log(err)
                         reject(err)
@@ -21,6 +21,10 @@ class Web3Api {
                 reject(err)
             }
         })
+    }
+
+    getTransactionCount(address) {
+        return this.web3.eth.getTransactionCount(address)
     }
 }
 
