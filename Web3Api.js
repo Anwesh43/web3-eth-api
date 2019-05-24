@@ -26,6 +26,10 @@ class Web3Api {
     getTransactionCount(address) {
         return this.web3.eth.getTransactionCount(address)
     }
+
+    getContract(abi, address) {
+        return new this.web3.eth.Contract(abi, address)
+    }
 }
 
 const networks = Object.keys(urls)
