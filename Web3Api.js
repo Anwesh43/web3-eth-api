@@ -30,6 +30,10 @@ class Web3Api {
     getContract(abi, address) {
         return new this.web3.eth.Contract(abi, address)
     }
+
+    getAccounts() {
+        return this.web3.eth.getAccounts()
+    }
 }
 
 const networks = Object.keys(urls)

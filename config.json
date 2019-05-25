@@ -1,6 +1,7 @@
 {
     "urls" : {
         "mainnet" : "https://mainnet.infura.io/v3/19ae29fc531e46229a7dec1f77e1d067",
-        "ropsten" : "https://ropsten.infura.io/v3/19ae29fc531e46229a7dec1f77e1d067"
+        "ropsten" : "https://ropsten.infura.io/v3/19ae29fc531e46229a7dec1f77e1d067",
+        "ganachecli" : "http://127.0.0.1:8545"
     }
 }
