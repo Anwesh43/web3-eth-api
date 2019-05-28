@@ -47,6 +47,24 @@ class Web3Api {
         const receiverBalance = await getAddressBalance(receivingAddress)
         return {senderBalance, receiverBalance}
     }
+
+    createTransaction(privateKey, txObj) {
+        return new Promise((resolve, reject) => {
+            const tx = new EthereumTransaction(txObj)
+            const privateKeyBuffer = Buffer.from(privateKey, 'hex')
+            tx.sign(privateKeyBuffer)
+            const serializedTx = tx.serialize()
+            this.web3.eth.sendSignedTransaction(serializedTx, (err, data) => {
+                if (!err) {
+                    console.log(data)
+                    resolve({status : "success"})
+                } else {
+                    console.log(err)
+                    reject({status : "error"})
+                }
+            })
+        })
+    }
 }
 
 const networks = Object.keys(urls)
