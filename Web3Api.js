@@ -1,5 +1,7 @@
 const Web3 = require('web3')
 const {urls} = require('./config.json')
+const EthereumTransaction = require('ethereumjs-tx')
+
 class Web3Api {
 
     constructor(network) {
@@ -33,6 +35,17 @@ class Web3Api {
 
     getAccounts() {
         return this.web3.eth.getAccounts()
+    }
+
+    async checkBalance(senderAddress, receivingAddress) {
+        let self = this
+        async function getAddressBalance(address) {
+            const balance = await self.getBalance(address)
+            return balance
+        }
+        const senderBalance = await getAddressBalance(senderAddress)
+        const receiverBalance = await getAddressBalance(receivingAddress)
+        return {senderBalance, receiverBalance}
     }
 }
 
