@@ -6,9 +6,38 @@ async function printTransactionCount(address) {
     console.log(transactionCount)
 }
 
-async function printContractDetails() {
+async function getContract() {
     const contract = await web3Api.getContract(abi, address)
+    return contract
+}
+
+async function printContractDetails() {
+    const contract = await getContract()
     console.log(contract)
+}
+
+
+async function setMessage(message) {
+    const contract = await getContract()
+    contract.methods.setMessage(message).call({from : '0xba5efaedb4ee8bcd17ba8f7c41eda66b633444b6'},(err, result) => {
+        if (err) {
+            console.log("error in setting message")
+        } else {
+            console.log("message set successfully")
+        }
+    })
+    console.log(contract.methods.getMessage)
+}
+
+async function getMessage() {
+    const contract = await getContract()
+    contract.methods.getMessage().call({from : '0xba5efaedb4ee8bcd17ba8f7c41eda66b633444b6'}, (err, result) => {
+        if (!err) {
+            console.log(result)
+        } else {
+            console.log("some issue while getting message")
+        }
+    })
 }
 
 if (process.argv.length == 4 && process.argv[2] == 'tc') {
@@ -17,4 +46,12 @@ if (process.argv.length == 4 && process.argv[2] == 'tc') {
 
 else if (process.argv.length == 3 && process.argv[2] == 'contract') {
     printContractDetails()
+}
+
+else if (process.argv.length == 4 && process.argv[2] == 'setMessage') {
+    setMessage(process.argv[3])
+}
+
+else if (process.argv.length == 3 && process.argv[2] == 'getMessage') {
+    getMessage()
 }
