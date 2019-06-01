@@ -1,4 +1,4 @@
-const web3Api = require('./Web3Api')('ganachecli')
+const web3Api = require('./Web3Api')('ganacheui')
 const {abi, address} = require('./remix_data.json')
 
 async function printTransactionCount(address) {
@@ -19,11 +19,12 @@ async function printContractDetails() {
 
 async function setMessage(message) {
     const contract = await getContract()
-    contract.methods.setMessage(message).call({from : '0xba5efaedb4ee8bcd17ba8f7c41eda66b633444b6'},(err, result) => {
+    contract.methods.setMessage(message).call({},(err, result) => {
         if (err) {
             console.log("error in setting message")
         } else {
             console.log("message set successfully")
+            console.log(result)
         }
     })
     console.log(contract.methods.getMessage)
@@ -31,7 +32,7 @@ async function setMessage(message) {
 
 async function getMessage() {
     const contract = await getContract()
-    contract.methods.getMessage().call({from : '0xba5efaedb4ee8bcd17ba8f7c41eda66b633444b6'}, (err, result) => {
+    contract.methods.getMessage().call({}, (err, result) => {
         if (!err) {
             console.log(result)
         } else {
